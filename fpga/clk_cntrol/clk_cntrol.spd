@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="simulation/submodules/clk_cntrol_altclkctrl_0.vhd"
+   type="VHDL"
+   library="altclkctrl_0" />
+ <file path="simulation/clk_cntrol.vhd" type="VHDL" />
+ <topLevel name="clk_cntrol" />
+ <deviceFamily name="cyclone10lp" />
+</simPackage>

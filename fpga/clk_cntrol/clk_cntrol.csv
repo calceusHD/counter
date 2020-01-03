@@ -1,0 +1,18 @@
+# system info clk_cntrol on 2019.08.26.20:45:24
+system_info:
+name,value
+DEVICE,10CL006YE144C8G
+DEVICE_FAMILY,Cyclone 10 LP
+GENERATION_ID,1566845123
+#
+#
+# Files generated for clk_cntrol on 2019.08.26.20:45:24
+files:
+filepath,kind,attributes,module,is_top
+simulation/clk_cntrol.vhd,VHDL,,clk_cntrol,true
+simulation/submodules/clk_cntrol_altclkctrl_0.vhd,VHDL,,clk_cntrol_altclkctrl_0,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+clk_cntrol.altclkctrl_0,clk_cntrol_altclkctrl_0

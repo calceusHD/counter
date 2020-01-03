@@ -1,0 +1,13 @@
+
+State Machine - |top|uart:dut|tx_state
+Name tx_state.TX_TX tx_state.TX_LOAD tx_state.TX_PRELOAD tx_state.TX_IDLE 
+tx_state.TX_IDLE 0 0 0 0 
+tx_state.TX_PRELOAD 0 0 1 1 
+tx_state.TX_LOAD 0 1 0 1 
+tx_state.TX_TX 1 0 0 1 
+
+State Machine - |top|uart:dut|rx_state
+Name rx_state.RX_WRITE rx_state.RX_RX rx_state.RX_IDLE 
+rx_state.RX_IDLE 0 0 0 
+rx_state.RX_RX 0 1 1 
+rx_state.RX_WRITE 1 0 1 

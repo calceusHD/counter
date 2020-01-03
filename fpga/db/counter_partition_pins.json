@@ -1,0 +1,205 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "clkloop_out",
+					"strict" : false
+				},
+				{
+					"name" : "uart_tx",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[0]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[1]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[2]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[3]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[4]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[5]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[6]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[7]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[8]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[9]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[10]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[11]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[12]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[13]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[14]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[15]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_a[16]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[0]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[1]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[2]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[3]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[4]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[5]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[6]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[7]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[8]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[9]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[10]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[11]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[12]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[13]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[14]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[15]",
+					"strict" : false
+				},
+				{
+					"name" : "row_en_b[16]",
+					"strict" : false
+				},
+				{
+					"name" : "col_en[0]",
+					"strict" : false
+				},
+				{
+					"name" : "col_en[1]",
+					"strict" : false
+				},
+				{
+					"name" : "col_en[2]",
+					"strict" : false
+				},
+				{
+					"name" : "col_en[3]",
+					"strict" : false
+				},
+				{
+					"name" : "col_en[4]",
+					"strict" : false
+				},
+				{
+					"name" : "col_en[5]",
+					"strict" : false
+				},
+				{
+					"name" : "col_en[6]",
+					"strict" : false
+				},
+				{
+					"name" : "col_en[7]",
+					"strict" : false
+				},
+				{
+					"name" : "test_out",
+					"strict" : false
+				},
+				{
+					"name" : "clkloop_in",
+					"strict" : false
+				},
+				{
+					"name" : "clkmcu",
+					"strict" : false
+				},
+				{
+					"name" : "uart_rx",
+					"strict" : false
+				},
+				{
+					"name" : "clkx",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

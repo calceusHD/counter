@@ -5,3 +5,5 @@ build
 .*
 !.gitignore
 *.tmp
+**/output_files/
+simulation/

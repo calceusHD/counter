@@ -1,0 +1,162 @@
+LIBRARY IEEE;
+USE IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+use ieee.math_real.all;
+
+entity uart is
+generic (
+	CLOCK_FREQ : positive := 12_000_000;
+	BAUD_RATE : positive := 115200
+);
+port (
+	clk : in std_logic;
+	rx : in std_logic;
+	tx : out std_logic := '1';
+	tx_data : in std_logic_vector(63 downto 0);
+	tx_wr : in std_logic;
+	tx_full : out std_logic;
+	rx_data : out std_logic_vector(63 downto 0);
+	rx_rd : in std_logic;
+	rx_avail : out std_logic;
+	test_out : out std_logic
+	);
+end entity;
+
+architecture structure of uart is
+	constant CLK_PER_BIT : integer := integer(real(CLOCK_FREQ / BAUD_RATE));
+	constant BIT_CLK_BITS : integer := integer(ceil(log2(real(CLK_PER_BIT))));
+	signal shift_out, shift_in : std_logic_vector(9 downto 0) := (others => '0');
+	signal shift_count, rx_shift_count : unsigned(3 downto 0);
+	
+	signal tx_bit_cnt, rx_bit_cnt : unsigned(BIT_CLK_BITS-1 downto 0);
+	signal rd_en : std_logic := '0';
+	signal wr_en : std_logic := '0';
+	signal fifo_data : std_logic_vector(7 downto 0);
+	signal fifo_empty : std_logic;
+	signal do_shift, int_empty : std_logic;
+	signal rx_do_shift : std_logic;
+	type TX_STATES is (TX_IDLE, TX_PRELOAD, TX_LOAD, TX_TX);
+	type RX_STATES is (RX_IDLE, RX_RX, RX_WRITE);
+	signal tx_state : TX_STATES := TX_IDLE;
+	signal rx_state : RX_STATES := RX_IDLE;
+	signal wrusedw : std_logic_vector(3 downto 0);
+begin
+
+	tx_full <= '1' when unsigned(wrusedw) >= 32 else '0';
+	process (clk)
+	begin
+		if rising_edge(clk) then
+			case rx_state is
+				when RX_IDLE =>
+					wr_en <= '0';
+					if rx = '0' then
+						rx_state <= RX_RX;
+						rx_shift_count <= to_unsigned(9, 4);
+					end if;
+				when RX_RX =>
+					if rx_do_shift = '1' then
+						shift_in(9) <= rx;
+						shift_in(8 downto 0) <= shift_in(9 downto 1);
+						rx_shift_count <= rx_shift_count - 1;
+						if rx_shift_count = 0 then
+							rx_state <= RX_WRITE;
+						end if;
+					end if;
+				when RX_WRITE =>
+					rx_state <= RX_IDLE;
+					wr_en <= '1';
+			end case;
+		end if;
+	end process;
+	
+	rx_do_shift <= '1' when rx_bit_cnt = 0 else '0';
+	test_out <= rx_do_shift;
+	
+	process (clk)
+	begin
+		if rising_edge(clk) then
+			if rx_state = RX_IDLE and rx = '0' then
+				rx_bit_cnt <= to_unsigned(CLK_PER_BIT / 2, BIT_CLK_BITS);
+			elsif rx_state = RX_RX then
+				if rx_bit_cnt = 0 then
+					rx_bit_cnt <= to_unsigned(CLK_PER_BIT, BIT_CLK_BITS);
+				else
+					rx_bit_cnt <= rx_bit_cnt - 1;
+				end if;
+			end if;
+		end if;
+	end process;
+						
+
+	process (clk)
+	begin
+		if rising_edge(clk) then
+			case tx_state is
+				when TX_IDLE =>
+					if fifo_empty = '0' then
+						rd_en <= '1';
+						tx_state <= TX_PRELOAD;
+					end if;
+				when TX_PRELOAD =>
+					rd_en <= '0';
+					tx_state <= TX_LOAD;
+				when TX_LOAD =>
+					tx_state <= TX_TX;
+					shift_out <= "1" & fifo_data & "0";
+					shift_count <= to_unsigned(10, 4);
+				when TX_TX =>
+					if do_shift = '1' then
+						tx <= shift_out(0);
+						shift_out(8 downto 0) <= shift_out(9 downto 1);
+						shift_count <= shift_count - 1;
+						if shift_count = 0 then
+							tx_state <= TX_IDLE;
+						end if;
+					end if;
+			end case;
+		end if;
+	end process;
+	
+	do_shift <= '1' when tx_bit_cnt = 0 else '0';
+	
+	process (clk)
+	begin
+		if rising_edge(clk) then
+			if tx_state = TX_TX then
+				if tx_bit_cnt = 0 then
+					tx_bit_cnt <= to_unsigned(CLK_PER_BIT, BIT_CLK_BITS);
+				else
+					tx_bit_cnt <= tx_bit_cnt - 1;
+				end if;
+			else
+				tx_bit_cnt <= to_unsigned(CLK_PER_BIT, BIT_CLK_BITS);
+			end if;
+		end if;
+	end process;
+	
+	tx_fifo_inst : entity work.tx_fifo
+	port map (
+		Data => tx_data,
+		WrClk => clk,
+		RdClk => clk,
+		wrreq => tx_wr,
+		rdreq => rd_en,
+		Q => fifo_data,
+		rdEmpty => fifo_empty,
+		wrusedw => wrusedw
+	);
+	
+	rx_fifo_inst : entity work.rx_fifo
+	port map (
+		Data => shift_in(8 downto 1),
+		rdclk => clk,
+		wrclk => clk,
+		wrreq => wr_en,
+		rdreq => rx_rd,
+		rdempty => int_empty,
+		Q => rx_data
+	);
+		
+	rx_avail <= not int_empty;
+		
+end architecture;
