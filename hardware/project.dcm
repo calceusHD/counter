@@ -1,0 +1,41 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 16Segment
+D Single digit 16 segment yellow LED common anode right hand decimal
+K yellow 16 segemnt LED common anode
+$ENDCMP
+#
+$CMP EE2-*TNU
+D Miniature Signal Relays
+F https://content.kemet.com/datasheets/KEM_R7002_EC2_EE2.pdf
+$ENDCMP
+#
+$CMP LMH7322
+D Dual 700 ps High Speed Comparator with RSPECL Outputs
+$ENDCMP
+#
+$CMP MAN71A
+D Single digit 16 segment yellow LED common anode right hand decimal
+K yellow 16 segemnt LED common anode
+$ENDCMP
+#
+$CMP MCP47FEBXX
+D Dual 8-bit Digital to Analog Converter, I2c Interface
+K Dual DAC 1ch 8bit I2c
+F http://ww1.microchip.com/downloads/en/DeviceDoc/20005375A.pdf
+$ENDCMP
+#
+$CMP SC183C
+K switching regulator adjustable positive
+$ENDCMP
+#
+$CMP SC202A
+K switching regulator adjustable positive
+$ENDCMP
+#
+$CMP ZXTP2006E6
+D Transistor PNP (general)
+K pnp transistor
+$ENDCMP
+#
+#End Doc Library
